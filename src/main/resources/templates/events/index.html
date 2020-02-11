@@ -5,11 +5,20 @@
 
 <header th:replace="fragments :: header"></header>
 
-<ul>
+<table class="eventTable">
+    <tr class="eventTableHeader">
+        <th>Event</th>
+        <th>Description</th>
+        <th>Tech Hub</th>
+    </tr>
     <th:block th:each="event : ${events}">
-        <li th:text="${event}"></li>
+        <tr class="eventTableItems">
+            <th th:text="${event.getKey()}"></th>
+            <th th:text="${event.getValue()}"></th>
+            <th><p th:replace="fragments :: tech-address"></p></th>
+        </tr>
     </th:block>
-</ul>
+</table>
 
 </body>
 </html>
