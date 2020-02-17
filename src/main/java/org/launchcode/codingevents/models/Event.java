@@ -1,8 +1,6 @@
 package org.launchcode.codingevents.models;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 /**
@@ -24,11 +22,29 @@ public class Event {
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
-    public Event(String name, String description, String contactEmail) {
+    @NotBlank(message = "Location required")
+    private String location;
+
+    @AssertTrue(message = "Attendee registration required")
+    private boolean registrationReq;
+
+    @Min(value = 1, message = "Must have at least 1 attending")
+    private int numberOfAttendees;
+
+    @NotBlank(message = "Organizer required")
+    private String eventOrganizer;
+
+    public Event(String name, String description, String contactEmail, String location, String registrationReq, int numberOfAttendees, String eventOrganizer) {
         this();
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
+        this.location = location;
+        if (registrationReq.equals("on")) {
+            this.registrationReq = true;
+        }
+        this.numberOfAttendees = numberOfAttendees;
+        this.eventOrganizer = eventOrganizer;
     }
 
     public Event() {
@@ -58,6 +74,38 @@ public class Event {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public boolean isRegistrationReq() {
+        return registrationReq;
+    }
+
+    public void setRegistrationReq(boolean registrationReq) {
+        this.registrationReq = registrationReq;
+    }
+
+    public int getNumberOfAttendees() {
+        return numberOfAttendees;
+    }
+
+    public void setNumberOfAttendees(int numberOfAttendees) {
+        this.numberOfAttendees = numberOfAttendees;
+    }
+
+    public String getEventOrganizer() {
+        return eventOrganizer;
+    }
+
+    public void setEventOrganizer(String eventOrganizer) {
+        this.eventOrganizer = eventOrganizer;
     }
 
     public int getId() {
